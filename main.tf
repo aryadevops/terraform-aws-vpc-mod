@@ -75,7 +75,7 @@ resource "aws_route_table" "public" {
     tags = merge(
         var.common_tags,
         {
-            Name = "${var.project_name}-${var.env}"
+            Name = "${var.project_name}-${var.env}-public"
         },
         var.public_route_table_tags
     )
@@ -112,7 +112,7 @@ resource "aws_route_table" "private" {
     tags = merge(
         var.common_tags,
         {
-            Name = "${var.project_name}-${var.env}"
+            Name = "${var.project_name}-${var.env}-private"
         },
         var.private_route_table_tags
     )
@@ -122,7 +122,7 @@ resource "aws_route_table" "private" {
 resource "aws_route" "private" {
     route_table_id = aws_route_table.private.id
     destination_cidr_block = "0.0.0.0/0"
-    gateway_id = aws_internet_gateway.main.id
+    nat_gateway_id = aws_nat_gateway.main.id
   
 }  
 
@@ -132,7 +132,7 @@ resource "aws_route_table" "database" {
     tags = merge(
         var.common_tags,
         {
-            Name = "${var.project_name}-${var.env}"
+            Name = "${var.project_name}-${var.env}-database"
         },
         var.database_route_table_tags
     )
@@ -142,7 +142,7 @@ resource "aws_route_table" "database" {
 resource "aws_route" "database" {
     route_table_id = aws_route_table.database.id
     destination_cidr_block = "0.0.0.0/0"
-    gateway_id = aws_internet_gateway.main.id
+    nat_gateway_id = aws_nat_gateway.main.id
   
 }  
 
