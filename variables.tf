@@ -38,7 +38,7 @@ variable "public_subnet_cidr" {
     type = list
     validation {
       condition = length(var.public_subnet_cidr) == 2
-      error_message = "Please provide 2 subnet cidr"
+      error_message = "Please provide 2 public subnet CIDR"
     }
 }
 
@@ -46,7 +46,7 @@ variable "private_subnet_cidr" {
     type = list
     validation {
       condition = length(var.private_subnet_cidr) == 2
-      error_message = "Please provide 2 subnet cidr"
+      error_message = "Please provide 2 private subnet cidr"
     }
 }
 
@@ -54,7 +54,7 @@ variable "database_subnet_cidr" {
     type = list
     validation {
       condition = length(var.database_subnet_cidr) == 2
-      error_message = "Please provide 2 subnet cidr"
+      error_message = "Please provide 2 database subnet cidr"
     }
 }
 
@@ -76,7 +76,7 @@ variable "private_route_table_tags" {
   default = {}
 }
 
-variable "subnet_db_group_tags" {
+variable "db_subnet_group_tags" {
   default = {}
   
 }

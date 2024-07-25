@@ -76,8 +76,8 @@ resource "aws_route_table" "public" {
         var.common_tags,
         {
             Name = "${var.project_name}-${var.env}-public"
-        },
-        var.public_route_table_tags
+        }
+        ##var.public_route_table_tags
     )
   
 }
@@ -147,21 +147,21 @@ resource "aws_route" "database" {
 }  
 
 resource "aws_route_table_association" "public" {
-    count = length(aws_subnet.public)
+    count = length(var.public_subnet_cidr)
     subnet_id = element(aws_subnet.public[*].id,count.index)
     route_table_id = aws_route_table.public.id
   
 }
 
 resource "aws_route_table_association" "private" {
-    count = length(aws_subnet.private)
+    count = length(var.private_subnet_cidr)
     subnet_id = element(aws_subnet.private[*].id,count.index)
     route_table_id = aws_route_table.private.id
   
 }
 
 resource "aws_route_table_association" "database" {
-    count = length(aws_subnet.database)
+    count = length(var.database_subnet_cidr)
     subnet_id = element(aws_subnet.database[*].id,count.index)
     route_table_id = aws_route_table.database.id
   
@@ -176,7 +176,7 @@ resource "aws_db_subnet_group" "roboshop" {
         {
             Name = "${var.project_name}-${var.env}"
         },
-        var.subnet_db_group_tags
+        var.db_subnet_group_tags
     )
   
 }
